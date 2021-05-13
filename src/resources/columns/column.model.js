@@ -15,4 +15,9 @@ export default class Column {
     const { id, title, order } = column;
     return { id, title, order };
   }
+
+  static toDB(column) {
+    const { id, title, order } = column;
+    return { id, title, order };
+  }
 }

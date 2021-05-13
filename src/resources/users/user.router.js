@@ -13,9 +13,13 @@ router.route('/').get(async (req, res) => {
 router.route('/:userId').get(async (req, res) => {
   const { userId } = req.params;
 
-  const users = await usersService.getById({ userId });
+  const user = await usersService.getById({ userId });
 
-  res.status(200).json(users.map(User.toResponse));
+  if (!user) {
+    return res.status(404).send('User not found')
+  }
+
+  res.status(200).json(User.toResponse(user));
 });
 
 router.route('/').post(async (req, res) => {
@@ -32,6 +36,10 @@ router.route('/:userId').put(async (req, res) => {
 
   const user = await usersService.update({ userId, body });
 
+  if (!user) {
+    return res.status(404).send('User not found')
+  }
+
   res.status(200).json(User.toResponse(user));
 });
 
@@ -39,6 +47,10 @@ router.route('/:userId').delete(async (req, res) => {
   const { userId } = req.params;
 
   const user = await usersService.remove({ userId });
+
+  if (!user) {
+    return res.status(404).send('User not found')
+  }
 
   res.status(200).json(User.toResponse(user));
 });

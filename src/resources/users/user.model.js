@@ -1,4 +1,4 @@
-import {v1 as uuid} from 'uuid'
+import { v1 as uuid } from 'uuid'
 
 export default class User {
   constructor({
@@ -16,5 +16,10 @@ export default class User {
   static toResponse(user) {
     const { id, name, login } = user;
     return { id, name, login };
+  }
+
+  static toDB(user) {
+    const { name, login, password } = user;
+    return { password, name, login };
   }
 }

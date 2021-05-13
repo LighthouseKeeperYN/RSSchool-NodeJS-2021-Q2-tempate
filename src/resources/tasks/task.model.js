@@ -1,4 +1,4 @@
-import {v1 as uuid} from 'uuid'
+import { v1 as uuid } from 'uuid'
 
 export default class Task {
   constructor({
@@ -20,23 +20,12 @@ export default class Task {
   }
 
   static toResponse(task) {
-    const {
-      id,
-      title,
-      order,
-      description,
-      userId,
-      boardId,
-      columnId
-    } = task;
-    return {
-      id,
-      title,
-      order,
-      description,
-      userId,
-      boardId,
-      columnId
-    };
+    const { id, title, order, description, userId, boardId, columnId } = task;
+    return { id, title, order, description, userId, boardId, columnId };
+  }
+
+  static toDb(task) {
+    const { id, title, order, description, userId, boardId, columnId } = task;
+    return { id, title, order, description, userId, boardId, columnId };
   }
 }

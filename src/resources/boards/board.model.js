@@ -15,4 +15,9 @@ export default class Board {
     const { id, title, column } = board;
     return { id, title, column };
   }
+
+  static toDB(board) {
+    const { id, title, column } = board;
+    return { id, title, column };
+  }
 }
