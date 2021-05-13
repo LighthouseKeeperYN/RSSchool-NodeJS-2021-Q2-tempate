@@ -1,5 +1,7 @@
-const columnsRepo = require('./column.memory.repository');
+import * as columnsRepo from './column.memory.repository.js';
 
-const getAll = () => columnsRepo.getAll();
-
-module.exports = { getAll };
+export const getAll = () => columnsRepo.getAll();
+export const getById = () => columnsRepo.getById()
+export const create = () => columnsRepo.create()
+export const update = () => columnsRepo.update()
+export const remove = () => columnsRepo.remove()

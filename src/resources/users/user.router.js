@@ -1,6 +1,8 @@
-const router = require('express').Router();
-const User = require('./user.model');
-const usersService = require('./user.service');
+import express from 'express'
+import User from './user.model.js'
+import * as usersService from './user.service.js'
+
+const router = express.Router()
 
 router.route('/').get(async (req, res) => {
   const users = await usersService.getAll();
@@ -13,7 +15,7 @@ router.route('/:userId').get(async (req, res) => {
 
   const users = await usersService.getById({ userId });
 
-  res.json(users.map(User.toResponse));
+  res.status(200).send(users.map(User.toResponse));
 });
 
 router.route('/').post(async (req, res) => {
@@ -21,7 +23,7 @@ router.route('/').post(async (req, res) => {
 
   const user = await usersService.create({ body });
 
-  res.json(User.toResponse(user));
+  res.status(200).send(User.toResponse(user))
 });
 
 router.route('/:userId').put(async (req, res) => {
@@ -30,7 +32,7 @@ router.route('/:userId').put(async (req, res) => {
 
   const user = await usersService.update({ userId, body });
 
-  res.json(User.toResponse(user));
+  res.status(200).send(User.toResponse(user));
 });
 
 router.route('/:userId').delete(async (req, res) => {
@@ -38,7 +40,7 @@ router.route('/:userId').delete(async (req, res) => {
 
   const user = await usersService.remove({ userId });
 
-  res.json(User.toResponse(user));
+  res.status(200).send(User.toResponse(user));
 });
 
-module.exports = router;
+export default router;

@@ -1,5 +1,7 @@
-const tasksRepo = require('./task.memory.repository');
+import * as tasksRepo from './task.memory.repository.js'
 
-const getAll = () => tasksRepo.getAll();
-
-module.exports = { getAll };
+export const getAll = () => tasksRepo.getAll();
+export const getById = () => tasksRepo.getById()
+export const create = () => tasksRepo.create()
+export const update = () => tasksRepo.update()
+export const remove = () => tasksRepo.remove()
