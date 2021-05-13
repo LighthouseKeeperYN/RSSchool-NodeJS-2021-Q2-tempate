@@ -3,7 +3,6 @@ const swaggerUI = require('swagger-ui-express');
 const path = require('path');
 const YAML = require('yamljs');
 const boardRouter = require('./resources/boards/board.router');
-const columnRouter = require('./resources/columns/column.router');
 const taskRouter = require('./resources/tasks/task.router');
 const userRouter = require('./resources/users/user.router');
 
@@ -23,8 +22,7 @@ app.use('/', (req, res, next) => {
 });
 
 app.use('/boards', boardRouter);
-app.use('/columns', columnRouter);
-app.use('/tasks', taskRouter);
+app.use('/boards/:boardId/tasks', taskRouter);
 app.use('/users', userRouter);
 
 module.exports = app;
