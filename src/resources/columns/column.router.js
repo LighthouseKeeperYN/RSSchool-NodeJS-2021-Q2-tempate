@@ -17,7 +17,7 @@ router.route('/:columnId').get(async (req, res) => {
     const column = await columnsService.getById({ columnId });
     res.status(200).json(Column.toResponse(column));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 
@@ -37,7 +37,7 @@ router.route('/:columnId').put(async (req, res) => {
     const column = await columnsService.update({ columnId, body });
     res.status(200).json(Column.toResponse(column));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 
@@ -48,7 +48,7 @@ router.route('/:columnId').delete(async (req, res) => {
     const column = await columnsService.remove({ columnId });
     res.status(200).json(Column.toResponse(column));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 

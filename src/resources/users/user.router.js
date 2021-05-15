@@ -17,7 +17,7 @@ router.route('/:userId').get(async (req, res) => {
     const user = await usersService.getById({ userId });
     res.status(200).json(User.toResponse(user));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 
@@ -37,7 +37,7 @@ router.route('/:userId').put(async (req, res) => {
     const user = await usersService.update({ userId, body });
     res.status(200).json(User.toResponse(user));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 
@@ -48,7 +48,7 @@ router.route('/:userId').delete(async (req, res) => {
     const user = await usersService.remove({ userId });
     res.status(200).json(User.toResponse(user));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 

@@ -17,7 +17,7 @@ router.route('/:boardId').get(async (req, res) => {
     const board = await boardsService.getById({ boardId });
     res.status(200).json(Board.toResponse(board));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 
@@ -37,7 +37,7 @@ router.route('/:boardId').put(async (req, res) => {
     const board = await boardsService.update({ boardId, body });
     res.status(200).json(Board.toResponse(board));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 
@@ -48,7 +48,7 @@ router.route('/:boardId').delete(async (req, res) => {
     const board = await boardsService.remove({ boardId });
     res.status(200).json(Board.toResponse(board));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 

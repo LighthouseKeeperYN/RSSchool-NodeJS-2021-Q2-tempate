@@ -19,7 +19,7 @@ router.route('/:taskId').get(async (req, res) => {
     const task = await tasksService.getById({ taskId, boardId });
     res.status(200).json(Task.toResponse(task));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 
@@ -40,7 +40,7 @@ router.route('/:taskId').put(async (req, res) => {
     const task = await tasksService.update({ taskId, boardId, body });
     res.status(200).json(Task.toResponse(task));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 
@@ -51,7 +51,7 @@ router.route('/:taskId').delete(async (req, res) => {
     const task = await tasksService.remove({ taskId, boardId });
     res.status(200).json(Task.toResponse(task));
   } catch (e) {
-    return res.status(404).send(e.message);
+    res.status(404).send(e.message);
   }
 });
 
