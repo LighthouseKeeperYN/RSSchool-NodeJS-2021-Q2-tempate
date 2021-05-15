@@ -35,7 +35,11 @@ const testTask = new Task({
 const db = {
   boards: { [testBoard.id]: testBoard },
   columns: { [testColumn.id]: testColumn },
-  tasks: { [testTask.id]: testTask },
+  tasks: {
+    [testBoard.id]: {
+      [testTask.id]: testTask
+    }
+  },
   users: { [testUser.id]: testUser }
 }
 

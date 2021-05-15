@@ -16,7 +16,7 @@ export default class Column {
     return { id, title, order };
   }
 
-  static toDB(column) {
+  static fromRequest(column) {
     const { id, title, order } = column;
     return { id, title, order };
   }

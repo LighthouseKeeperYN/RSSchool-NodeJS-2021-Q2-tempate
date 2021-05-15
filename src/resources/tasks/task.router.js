@@ -1,49 +1,58 @@
-import express  from 'express'
-import Task  from './task.model.js';
-import * as tasksService  from './task.service.js';
+import express from 'express'
+import Task from './task.model.js'
+import * as tasksService from './task.service.js'
 
-const router = express.Router({ mergeParams: true });
+const router = express.Router({ mergeParams: true })
 
 router.route('/').get(async (req, res) => {
-  const { boardId } = req.params
+  const { boardId } = req.params;
 
   const tasks = await tasksService.getAll({ boardId });
 
-  res.status(200).send(tasks.map(Task.toResponse));
+  res.status(200).json(tasks.map(Task.toResponse));
 });
 
 router.route('/:taskId').get(async (req, res) => {
-  const { boardId, taskId } = req.params
+  const { taskId, boardId } = req.params;
 
-  const tasks = await tasksService.getById({ boardId, taskId });
-
-  res.status(200).send(tasks.map(Task.toResponse));
+  try {
+    const task = await tasksService.getById({ taskId, boardId });
+    res.status(200).json(Task.toResponse(task));
+  } catch (e) {
+    return res.status(404).send(e.message);
+  }
 });
 
-
 router.route('/').post(async (req, res) => {
-  const { boardId } = req.params
+  const { body } = req;
+  const { boardId } = req.params;
 
-  const task = await tasksService.create({ boardId });
+  const task = await tasksService.create({ boardId, body });
 
-  res.status(200).send(Task.toResponse(task));
+  res.status(201).json(Task.toResponse(task))
 });
 
 router.route('/:taskId').put(async (req, res) => {
-  const { body } = req
-  const { boardId, taskId } = req.params
+  const { body } = req;
+  const { taskId, boardId } = req.params;
 
-  const task = await tasksService.update({ boardId, taskId, body });
-
-  res.status(200).send(Task.toResponse(task));
+  try {
+    const task = await tasksService.update({ taskId, boardId, body });
+    res.status(200).json(Task.toResponse(task));
+  } catch (e) {
+    return res.status(404).send(e.message);
+  }
 });
 
 router.route('/:taskId').delete(async (req, res) => {
-  const { boardId, taskId } = req.params
+  const { taskId, boardId } = req.params;
 
-  const task = await tasksService.remove({ boardId, taskId });
-
-  res.status(200).send(Task.toResponse(task));
+  try {
+    const task = await tasksService.remove({ taskId, boardId });
+    res.status(200).json(Task.toResponse(task));
+  } catch (e) {
+    return res.status(404).send(e.message);
+  }
 });
 
 export default router;

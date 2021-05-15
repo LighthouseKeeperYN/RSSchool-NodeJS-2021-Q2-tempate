@@ -13,13 +13,12 @@ router.route('/').get(async (req, res) => {
 router.route('/:userId').get(async (req, res) => {
   const { userId } = req.params;
 
-  const user = await usersService.getById({ userId });
-
-  if (!user) {
-    return res.status(404).send('User not found')
+  try {
+    const user = await usersService.getById({ userId });
+    res.status(200).json(User.toResponse(user));
+  } catch (e) {
+    return res.status(404).send(e.message);
   }
-
-  res.status(200).json(User.toResponse(user));
 });
 
 router.route('/').post(async (req, res) => {
@@ -27,32 +26,30 @@ router.route('/').post(async (req, res) => {
 
   const user = await usersService.create({ body });
 
-  res.status(200).json(User.toResponse(user))
+  res.status(201).json(User.toResponse(user))
 });
 
 router.route('/:userId').put(async (req, res) => {
   const { body } = req;
   const { userId } = req.params;
 
-  const user = await usersService.update({ userId, body });
-
-  if (!user) {
-    return res.status(404).send('User not found')
+  try {
+    const user = await usersService.update({ userId, body });
+    res.status(200).json(User.toResponse(user));
+  } catch (e) {
+    return res.status(404).send(e.message);
   }
-
-  res.status(200).json(User.toResponse(user));
 });
 
 router.route('/:userId').delete(async (req, res) => {
   const { userId } = req.params;
 
-  const user = await usersService.remove({ userId });
-
-  if (!user) {
-    return res.status(404).send('User not found')
+  try {
+    const user = await usersService.remove({ userId });
+    res.status(200).json(User.toResponse(user));
+  } catch (e) {
+    return res.status(404).send(e.message);
   }
-
-  res.status(200).json(User.toResponse(user));
 });
 
 export default router;

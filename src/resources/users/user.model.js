@@ -18,8 +18,8 @@ export default class User {
     return { id, name, login };
   }
 
-  static toDB(user) {
-    const { name, login, password } = user;
-    return { password, name, login };
+  static fromRequest(user) {
+    const { name, login, password, id } = user;
+    return { password, name, login, id };
   }
 }

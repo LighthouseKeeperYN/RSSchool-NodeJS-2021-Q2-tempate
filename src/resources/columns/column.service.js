@@ -1,7 +1,8 @@
 import * as columnsRepo from './column.memory.repository.js';
+import Column from './column.model.js'
 
-export const getAll = () => columnsRepo.getAll();
-export const getById = ({ userId }) => columnsRepo.getById(userId)
-export const create = ({ body }) => columnsRepo.create(body)
-export const update = ({ userId, body }) => columnsRepo.update(userId, body)
-export const remove = ({ userId }) => columnsRepo.remove(userId)
+export const getAll = async () => Object.values(await columnsRepo.getAll());
+export const getById = async ({ columnId }) => columnsRepo.getById(columnId)
+export const create = async ({ body }) => columnsRepo.create(new Column(body))
+export const update = async ({ columnId, body }) => columnsRepo.update(columnId, Column.fromRequest(body))
+export const remove = async ({ columnId }) => columnsRepo.remove(columnId)
