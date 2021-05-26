@@ -6,7 +6,7 @@ import User from './resources/users/user.model.js'
 const testBoard = new Board({
   id: 'testBoard',
   title: 'testTitle',
-  column: 'testColumn'
+  columns: ['testColumn']
 })
 
 const testUser = new User({

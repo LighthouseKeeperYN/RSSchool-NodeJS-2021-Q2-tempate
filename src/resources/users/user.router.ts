@@ -14,7 +14,7 @@ router.route('/:userId').get(async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const user = await usersService.getById({ userId });
+    const user = await usersService.getById(userId);
     res.status(200).json(User.toResponse(user));
   } catch (e) {
     res.status(404).send(e.message);
@@ -24,7 +24,7 @@ router.route('/:userId').get(async (req, res) => {
 router.route('/').post(async (req, res) => {
   const { body } = req;
 
-  const user = await usersService.create({ body });
+  const user = await usersService.create(body);
 
   res.status(201).json(User.toResponse(user))
 });
@@ -34,7 +34,7 @@ router.route('/:userId').put(async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const user = await usersService.update({ userId, body });
+    const user = await usersService.update(userId, body);
     res.status(200).json(User.toResponse(user));
   } catch (e) {
     res.status(404).send(e.message);
@@ -45,7 +45,7 @@ router.route('/:userId').delete(async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const user = await usersService.remove({ userId });
+    const user = await usersService.remove(userId);
     res.status(200).json(User.toResponse(user));
   } catch (e) {
     res.status(404).send(e.message);

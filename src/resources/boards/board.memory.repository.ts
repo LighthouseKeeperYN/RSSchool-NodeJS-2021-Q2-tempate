@@ -1,19 +1,20 @@
 import db from '../../db.js'
+import { IBoard } from './board.model';
 
 export const getAll = async () => db.boards
-export const getById = async (id) => {
+export const getById = async (id: string) => {
   if (!db.boards[id]) {
     throw new Error('Board not found')
   }
 
   return db.boards[id]
 }
-export const create = async (board) => {
+export const create = async (board: IBoard) => {
   db.boards[board.id] = board
   db.tasks[board.id] = {}
   return db.boards[board.id]
 };
-export const update = async (id, board) => {
+export const update = async (id: string, board: IBoard) => {
   if (!db.boards[id]) {
     throw new Error('Board not found')
   }
@@ -21,7 +22,7 @@ export const update = async (id, board) => {
   db.boards[id] = { ...db.boards[id], ...board }
   return db.boards[id]
 };
-export const remove = async (id) => {
+export const remove = async (id: string) => {
   if (!db.boards[id]) {
     throw new Error('Board not found')
   }

@@ -1,18 +1,19 @@
 import db from '../../db.js'
+import { IColumn } from './column.model';
 
 export const getAll = async () => db.columns
-export const getById = async (id) => {
+export const getById = async (id: string) => {
   if (!db.columns[id]) {
     throw new Error('Column not found')
   }
 
   return db.columns[id]
 }
-export const create = async (column) => {
+export const create = async (column: IColumn) => {
   db.columns[column.id] = column
   return db.columns[column.id]
 };
-export const update = async (id, column) => {
+export const update = async (id: string, column: IColumn) => {
   if (!db.columns[id]) {
     throw new Error('Column not found')
   }
@@ -20,7 +21,7 @@ export const update = async (id, column) => {
   db.columns[id] = { ...db.columns[id], ...column }
   return db.columns[id]
 };
-export const remove = async (id) => {
+export const remove = async (id: string) => {
   if (!db.columns[id]) {
     throw new Error('Column not found')
   }

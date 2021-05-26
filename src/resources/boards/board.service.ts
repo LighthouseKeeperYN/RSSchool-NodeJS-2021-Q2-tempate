@@ -1,8 +1,8 @@
 import * as boardsRepo from './board.memory.repository.js';
-import Board from './board.model.js'
+import Board, { IBoard } from './board.model.js'
 
 export const getAll = async () => Object.values(await boardsRepo.getAll());
-export const getById = async ({ boardId }) => boardsRepo.getById(boardId)
-export const create = async ({ body }) => boardsRepo.create(new Board(body))
-export const update = async ({ boardId, body }) => boardsRepo.update(boardId, Board.fromRequest(body))
-export const remove = async ({ boardId }) => boardsRepo.remove(boardId)
+export const getById = async (boardId: string) => boardsRepo.getById(boardId)
+export const create = async (body: IBoard) => boardsRepo.create(new Board(body))
+export const update = async (boardId: string, body: IBoard) => boardsRepo.update(boardId, Board.fromRequest(body))
+export const remove = async (boardId: string) => boardsRepo.remove(boardId)

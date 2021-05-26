@@ -1,18 +1,19 @@
 import db from '../../db.js'
+import { IUser } from './user.model';
 
 export const getAll = async () => db.users
-export const getById = async (id) => {
+export const getById = async (id: string) => {
   if (!db.users[id]) {
     throw new Error('User not found')
   }
 
   return db.users[id]
 }
-export const create = async (user) => {
+export const create = async (user: IUser) => {
   db.users[user.id] = user
   return db.users[user.id]
 };
-export const update = async (id, user) => {
+export const update = async (id: string, user: IUser) => {
   if (!db.users[id]) {
     throw new Error('User not found')
   }
@@ -20,7 +21,7 @@ export const update = async (id, user) => {
   db.users[id] = { ...db.users[id], ...user }
   return db.users[id]
 };
-export const remove = async (id) => {
+export const remove = async (id: string) => {
   if (!db.users[id]) {
     throw new Error('User not found')
   }
