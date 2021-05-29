@@ -1,15 +1,16 @@
 import { v1 as uuid } from 'uuid';
+import { IColumn } from './../columns/column.model';
 
 export interface IBoard {
   id: string,
   title: string,
-  columns: string[]
+  columns: IColumn[]
 }
 
 export default class Board implements IBoard {
   id: string
   title: string
-  columns: string[]
+  columns: IColumn[]
 
   constructor(options: IBoard) {
     this.id = options.id || uuid();

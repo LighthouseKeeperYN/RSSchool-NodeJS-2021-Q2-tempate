@@ -42,8 +42,10 @@ export const remove = async (boardId: string, taskId: string) => {
 
 export const unassignAll = async (userId: string) => {
   const allTasks = Object.values(db.tasks).map(boardTasks => Object.values(boardTasks)).flat()
+
   allTasks.forEach((task: ITask) => {
     if (!(task.userId === userId) || !db.tasks[task.boardId]) return
+
     db.tasks[task.boardId]![task.id]!.userId = null
   })
 }

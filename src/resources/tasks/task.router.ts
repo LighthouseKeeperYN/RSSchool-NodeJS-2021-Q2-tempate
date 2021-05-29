@@ -18,7 +18,7 @@ router.route('/:taskId').get(async (req: IRequest, res) => {
   if (!boardId || !taskId) return
 
   try {
-    const task = await tasksService.getById(taskId, boardId);
+    const task = await tasksService.getById(boardId, taskId);
     if (!task) return
     res.status(200).json(Task.toResponse(task));
   } catch (e) {
@@ -42,7 +42,7 @@ router.route('/:taskId').put(async (req: IRequest, res) => {
   if (!taskId || !boardId) return
 
   try {
-    const task = await tasksService.update(taskId, boardId, body);
+    const task = await tasksService.update(boardId, taskId, body);
     if (!task) return
     res.status(200).json(Task.toResponse(task));
   } catch (e) {
@@ -55,7 +55,7 @@ router.route('/:taskId').delete(async (req: IRequest, res) => {
   if (!boardId || !taskId) return
 
   try {
-    const task = await tasksService.remove(taskId, boardId);
+    const task = await tasksService.remove(boardId, taskId);
     if (!task) return
     res.status(200).json(Task.toResponse(task));
   } catch (e) {
