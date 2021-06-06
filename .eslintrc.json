@@ -35,4 +35,5 @@
     "lines-between-class-members": "off",
     "no-console": "off",
     "no-unused-vars": "off"
+  }
 }
