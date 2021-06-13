@@ -1,0 +1,15 @@
+version: '3'
+services:
+  node:
+    build: .
+    ports:
+      - ${PORT}:${PORT}
+    container_name: rest-service
+    environment:
+      - PORT=${PORT}
+    restart: always
+networks:
+  my-network:
+    driver: bridge
+volumes:
+  pgdata:

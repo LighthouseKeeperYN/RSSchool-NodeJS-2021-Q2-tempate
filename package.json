@@ -7,7 +7,7 @@
   },
   "type": "module",
   "description": "REST service starter for RS School",
-  "main": "src/server.ts",
+  "main": "./src/server.ts",
   "scripts": {
     "start": "node --experimental-modules ./dist/server.js",
     "build": "rm -rf ./dist && tsc --build",

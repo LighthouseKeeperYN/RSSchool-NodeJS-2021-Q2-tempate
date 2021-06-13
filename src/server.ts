@@ -1,6 +1,6 @@
-import { PORT } from './common/config.js'
+import { PORT, HOST } from './common/config.js'
 import app from './app.js'
 
-app.listen(PORT, () =>
-  console.log(`App is running on http://localhost:${PORT}`)
+app.listen(PORT, HOST, () =>
+  console.log(`App is running on ${HOST}:${PORT}`)
 );
