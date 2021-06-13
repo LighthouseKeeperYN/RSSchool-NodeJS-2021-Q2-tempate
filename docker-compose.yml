@@ -11,6 +11,7 @@ services:
     volumes:
       - ./logs:/usr/src/app/logs
       - ./db:/usr/src/app/db
+      - ./src:/usr/src/app/src
     networks:
       - my-network
 networks:

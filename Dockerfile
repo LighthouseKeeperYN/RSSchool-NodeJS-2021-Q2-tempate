@@ -11,7 +11,7 @@ RUN touch error.log \
   && touch uncaughtException.log \
   && touch unhandledRejection.log
 
-RUN npm install && npm run build
+RUN npm install
 
 EXPOSE 8088
 
