@@ -16,6 +16,7 @@ import requestMiddleware from './middleware/request.middleware.js'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
@@ -40,5 +41,4 @@ app.use('/users', userRouter);
 
 process.on('uncaughtException', uncaughtExceptionMiddleware);
 process.on('unhandledRejection', unhandledRejectionMiddleware);
-
 export default app;

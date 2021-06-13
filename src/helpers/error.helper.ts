@@ -31,7 +31,6 @@ export const logError = (err: ErrorHandler) => {
   const { statusCode, message } = err;
 
   const logEntry = `[${moment().format('YYYY-MM-DD hh:mm:ss')}]: ${statusCode} ${message}\n`
-
   const errorLog = fs.createWriteStream(path.join(__dirname, '../../logs/error.log'), { flags: 'a' });
 
   errorLog.write(logEntry);
