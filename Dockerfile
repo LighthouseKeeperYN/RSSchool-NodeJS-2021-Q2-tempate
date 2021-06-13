@@ -1,10 +1,18 @@
 FROM node:14.17-alpine
+
 WORKDIR /usr/src/app
+
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY . .
+
+RUN touch error.log \
+  && touch request.log \
+  && touch uncaughtException.log \
+  && touch unhandledRejection.log
+
 RUN npm install && npm run build
+
 EXPOSE 8088
-# RUN npm start
-# CMD ["node", "./dist/server.js"]
+
 CMD ["npm", "start"]

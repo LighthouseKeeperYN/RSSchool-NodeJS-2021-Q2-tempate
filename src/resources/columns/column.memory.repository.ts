@@ -1,4 +1,4 @@
-import db from '../../db.js'
+import db from '../../../db/index.js'
 import { IColumn } from './column.model';
 
 export const getAll = async () => db.columns

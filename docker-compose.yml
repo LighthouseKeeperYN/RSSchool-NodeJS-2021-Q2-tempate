@@ -8,6 +8,11 @@ services:
     environment:
       - PORT=${PORT}
     restart: always
+    volumes:
+      - ./logs:/usr/src/app/logs
+      - ./db:/usr/src/app/db
+    networks:
+      - my-network
 networks:
   my-network:
     driver: bridge

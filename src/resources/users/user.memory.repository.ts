@@ -1,4 +1,4 @@
-import db from '../../db.js'
+import db from '../../../db/index.js'
 import { IUser } from './user.model';
 
 export const getAll = async () => db.users
