@@ -9,9 +9,9 @@ services:
       - PORT=${PORT}
     restart: always
     volumes:
-      - ./logs:/usr/src/app/logs
-      - ./db:/usr/src/app/db
-      - ./src:/usr/src/app/src
+      - ./src:/usr/app/src
+      - ./logs:/usr/app/logs
+      - ./db:/usr/app/db
     networks:
       - my-network
 networks:

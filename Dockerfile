@@ -1,15 +1,11 @@
 FROM node:14.17-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /usr/app
 
 COPY package*.json ./
 COPY tsconfig.json ./
+COPY nodemon.json ./
 COPY . .
-
-RUN touch error.log \
-  && touch request.log \
-  && touch uncaughtException.log \
-  && touch unhandledRejection.log
 
 RUN npm install
 
