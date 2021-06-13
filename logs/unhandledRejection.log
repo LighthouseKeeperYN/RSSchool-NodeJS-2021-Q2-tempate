@@ -1,8 +1,0 @@
-
-    [2021-06-13 04:25:39]
-    Error: Oops!
-    at file:///usr/src/app/src/app.ts:44:16
-    at ModuleJob.run (internal/modules/esm/module_job.js:152:23)
-    at Loader.import (internal/modules/esm/loader.js:177:24)
-    at Object.loadESM (internal/process/esm_loader.js:68:5)
-   
