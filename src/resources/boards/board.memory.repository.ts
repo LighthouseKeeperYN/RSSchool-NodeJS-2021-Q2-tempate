@@ -1,4 +1,4 @@
-import db from '../../db.js'
+import db from '../../../db/index.js'
 import { IBoard } from './board.model';
 
 export const getAll = async () => db.boards

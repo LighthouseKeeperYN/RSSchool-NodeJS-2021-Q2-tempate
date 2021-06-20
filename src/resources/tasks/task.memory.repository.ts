@@ -1,4 +1,4 @@
-import db from '../../db.js'
+import db from '../../../db/index.js'
 import { ITask } from './task.model';
 
 export const getAll = async (boardId: string) => db.tasks[boardId] || {}

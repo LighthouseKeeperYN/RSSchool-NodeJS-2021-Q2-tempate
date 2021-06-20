@@ -1,8 +1,0 @@
-
-    [2021-06-06 07:01:46]
-    Error: Oops!
-    at file:///D:/_Programming/rs-school/BackEnd/RSSchool-NodeJS-2021-Q2-tempate/src/app.ts:44:16
-    at ModuleJob.run (internal/modules/esm/module_job.js:146:23)
-    at Loader.import (internal/modules/esm/loader.js:165:24)
-    at Object.loadESM (internal/process/esm_loader.js:68:5)
-   
