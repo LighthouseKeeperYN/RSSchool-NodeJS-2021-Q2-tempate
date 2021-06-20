@@ -16,7 +16,6 @@ dotenv.config({
 
 export default {
   type: "postgres",
-  name: "postgres",
   host: process.env['POSTGRES_HOST']!,
   port: +process.env['POSTGRES_PORT']!,
   username: process.env['POSTGRES_USER']!,

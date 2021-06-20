@@ -7,10 +7,10 @@ export interface IColumn {
   order: number,
 }
 
-@Entity({ name: 'column' })
+@Entity({ name: 'columns' })
 export default class Column implements IColumn {
   @PrimaryGeneratedColumn('uuid') public id: string
-  @DbColumn('varchar') public title: string
+  @DbColumn() public title: string
   @DbColumn('integer') public order: number
 
   constructor({

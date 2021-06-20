@@ -1,51 +1,54 @@
-import db from '../../../db/index.js'
-import { ITask } from '../../entities/task.model.js';
+import { getRepository } from 'typeorm';
+import Task, { ITask } from '../../entities/task.model.js';
 
-export const getAll = async (boardId: string) => db.tasks[boardId] || {}
+export const getAll = async () => {
+  const repo = getRepository(Task)
+  return repo.find()
+};
 
-export const getById = async (boardId: string, taskId: string) => {
-  if (!db.tasks[boardId]?.[taskId]) {
+export const getById = async (id: string) => {
+  const repo = getRepository(Task)
+  const task = await repo.findOne(id)
+
+  if (!task) {
     throw new Error('Task not found')
   }
 
-  return db.tasks[boardId]?.[taskId]
+  return task
 }
 
-export const create = async (boardId: string, task: ITask) => {
-  if (!db.tasks[boardId]) {
-    throw new Error("Board doesn't exist")
-  }
+export const create = async (task: ITask) => {
+  const repo = getRepository(Task)
+  const newTask = repo.create(task)
 
-  db.tasks[boardId]![task.id] = task
-
-  return db.tasks[boardId]![task.id]
+  return repo.save(newTask)
 };
 
-export const update = async (boardId: string, taskId: string, task: ITask) => {
-  if (!db.tasks[boardId]?.[taskId]) {
+export const update = async (id: string, task: ITask) => {
+  const repo = getRepository(Task)
+  const updateRes = await repo.update(id, task)
+
+  if (!updateRes.affected) {
     throw new Error('Task not found')
   }
 
-  db.tasks[boardId]![taskId] = { ...db.tasks[boardId]![taskId], ...task }
-  return db.tasks[boardId]![taskId]
+  return task
 };
 
-export const remove = async (boardId: string, taskId: string) => {
-  if (!db.tasks[boardId]?.[taskId]) {
+export const remove = async (id: string) => {
+  const repo = getRepository(Task)
+  const foundTask = await repo.findOne(id)
+
+  if (!foundTask) {
     throw new Error('Task not found')
   }
 
-  const deletedTask = db.tasks[boardId]![taskId]
-  delete db.tasks[boardId]![taskId]
-  return deletedTask
+  await repo.delete(id)
+
+  return foundTask
 }
 
 export const unassignAll = async (userId: string) => {
-  const allTasks = Object.values(db.tasks).map(boardTasks => Object.values(boardTasks)).flat()
-
-  allTasks.forEach((task: ITask) => {
-    if (!(task.userId === userId) || !db.tasks[task.boardId]) return
-
-    db.tasks[task.boardId]![task.id]!.userId = null
-  })
+  const repo = getRepository(Task);
+  await repo.update({ userId }, { userId: null });
 }

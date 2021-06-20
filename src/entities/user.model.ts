@@ -8,12 +8,12 @@ export interface IUser {
   password: string
 }
 
-@Entity('user')
+@Entity('users')
 export default class User implements IUser {
   @PrimaryGeneratedColumn('uuid') public id: string
-  @DbColumn('varchar') public name: string
-  @DbColumn('varchar') public login: string
-  @DbColumn('varchar') public password: string
+  @DbColumn() public name: string
+  @DbColumn() public login: string
+  @DbColumn() public password: string
 
   constructor({
     id = uuid(),

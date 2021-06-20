@@ -11,15 +11,15 @@ export interface ITask {
   columnId?: string,
 }
 
-@Entity({ name: 'task' })
+@Entity({ name: 'tasks' })
 export default class Task implements ITask {
   @PrimaryGeneratedColumn('uuid') public id: string
-  @DbColumn('varchar') public title: string
+  @DbColumn() public title: string
   @DbColumn('integer') public order: number
-  @DbColumn('varchar') public description: string
-  @DbColumn('uuid', { nullable: true }) public userId?: string | null
+  @DbColumn() public description: string
   @DbColumn('uuid') public boardId: string
-  @DbColumn('uuid', { nullable: true }) public columnId?: string
+  @DbColumn('varchar', { nullable: true }) public userId?: string | null
+  @DbColumn('varchar', { nullable: true }) public columnId?: string
 
   constructor({
     id = uuid(),

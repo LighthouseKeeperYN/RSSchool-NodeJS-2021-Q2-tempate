@@ -1,10 +1,14 @@
 import { getRepository } from 'typeorm';
 import User, { IUser } from '../../entities/user.model.js';
 
-export const getAll = async () => getRepository(User).find();
+export const getAll = async () => {
+  const repo = getRepository(User)
+  return repo.find()
+};
 
 export const getById = async (id: string) => {
-  const user = getRepository(User).findOne(id)
+  const repo = getRepository(User)
+  const user = await repo.findOne({ id })
 
   if (!user) {
     throw new Error('User not found')
@@ -33,13 +37,13 @@ export const update = async (id: string, user: IUser) => {
 
 export const remove = async (id: string) => {
   const repo = getRepository(User)
-  const foundUser = repo.findOne(id)
+  const foundUser = await repo.findOne(id)
 
   if (!foundUser) {
     throw new Error('User not found')
   }
 
-  repo.delete(id)
+  await repo.delete(id)
 
   return foundUser
 }

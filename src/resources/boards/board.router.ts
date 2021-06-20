@@ -49,7 +49,7 @@ router.route('/:boardId').delete(async (req, res) => {
   try {
     const board = await boardsService.remove(boardId);
     if (!board) return
-    res.status(200).json(Board.toResponse(board));
+    res.status(200).json(Board.toResponse(board))
   } catch (e) {
     res.status(404).send(e.message);
   }

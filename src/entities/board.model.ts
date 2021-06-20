@@ -1,23 +1,23 @@
 import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from "typeorm";
 import { v1 as uuid } from 'uuid';
-import { IColumn } from './column.model.js';
 
 export interface IBoard {
   id: string,
   title: string,
-  columns: IColumn[]
+  columns: string
+
 }
 
-@Entity({ name: 'board' })
+@Entity({ name: 'boards' })
 export default class Board implements IBoard {
   @PrimaryGeneratedColumn('uuid') id: string
-  @DbColumn('varchar') title: string
-  @DbColumn('simple-array', { nullable: true }) columns: IColumn[]
+  @DbColumn() title: string
+  @DbColumn('json', { nullable: true }) columns: string
 
   constructor({
     id = uuid(),
     title = '',
-    columns = []
+    columns
   }: IBoard = {} as IBoard) {
     this.id = id;
     this.title = title;
