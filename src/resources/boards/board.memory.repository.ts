@@ -1,5 +1,5 @@
 import db from '../../../db/index.js'
-import { IBoard } from './board.model';
+import { IBoard } from '../../entities/board.model.js';
 
 export const getAll = async () => db.boards
 export const getById = async (id: string) => {

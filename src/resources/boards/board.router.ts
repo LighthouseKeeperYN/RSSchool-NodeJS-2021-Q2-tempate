@@ -1,5 +1,5 @@
 import express from 'express'
-import Board from './board.model.js'
+import Board from '../../entities/board.model.js'
 import * as boardsService from './board.service.js'
 
 const router = express.Router()

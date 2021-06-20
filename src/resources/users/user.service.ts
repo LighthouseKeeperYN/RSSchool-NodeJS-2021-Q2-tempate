@@ -1,6 +1,6 @@
 import * as usersRepo from './user.memory.repository.js';
 import * as tasksRepo from '../tasks/task.memory.repository.js';
-import User, { IUser } from './user.model.js'
+import User, { IUser } from '../../entities/user.model.js'
 
 export const getAll = async () => Object.values(await usersRepo.getAll());
 export const getById = async (userId: string) => usersRepo.getById(userId)

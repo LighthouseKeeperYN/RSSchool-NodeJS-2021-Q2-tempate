@@ -1,5 +1,5 @@
 import express from 'express'
-import User from './user.model.js'
+import User from '../../entities/user.model.js'
 import * as usersService from './user.service.js'
 
 const router = express.Router()

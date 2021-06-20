@@ -1,6 +1,5 @@
 import * as columnsRepo from './column.memory.repository.js';
-import Column from './column.model.js'
-import { IColumn } from './column.model'
+import Column, { IColumn } from '../../entities/column.model.js'
 
 export const getAll = async () => Object.values(await columnsRepo.getAll());
 export const getById = async (columnId: string) => columnsRepo.getById(columnId)

@@ -1,5 +1,5 @@
 import * as boardsRepo from './board.memory.repository.js';
-import Board, { IBoard } from './board.model.js'
+import Board, { IBoard } from '../../entities/board.model.js'
 
 export const getAll = async () => Object.values(await boardsRepo.getAll());
 export const getById = async (boardId: string) => boardsRepo.getById(boardId)

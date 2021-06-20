@@ -1,7 +1,7 @@
-import Board, { IBoard } from '../src/resources/boards/board.model.js'
-import Column, { IColumn } from '../src/resources/columns/column.model.js'
-import Task, { ITask } from '../src/resources/tasks/task.model.js'
-import User, { IUser } from '../src/resources/users/user.model.js'
+import Board, { IBoard } from '../src/entities/board.model.js'
+import Column, { IColumn } from '../src/entities/column.model.js'
+import Task, { ITask } from '../src/entities/task.model.js'
+import User, { IUser } from '../src/entities/user.model.js'
 
 const testUser = new User({
   id: 'testUser',

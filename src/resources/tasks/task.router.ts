@@ -1,5 +1,5 @@
 import express, { Request as IRequest } from 'express'
-import Task from './task.model.js'
+import Task from '../../entities/task.model.js'
 import * as tasksService from './task.service.js'
 
 const router = express.Router({ mergeParams: true })

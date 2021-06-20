@@ -1,32 +1,45 @@
-import db from '../../../db/index.js'
-import { IUser } from './user.model';
+import { getRepository } from 'typeorm';
+import User, { IUser } from '../../entities/user.model.js';
 
-export const getAll = async () => db.users
+export const getAll = async () => getRepository(User).find();
+
 export const getById = async (id: string) => {
-  if (!db.users[id]) {
+  const user = getRepository(User).findOne(id)
+
+  if (!user) {
     throw new Error('User not found')
   }
 
-  return db.users[id]
+  return user
 }
+
 export const create = async (user: IUser) => {
-  db.users[user.id] = user
-  return db.users[user.id]
+  const repo = getRepository(User)
+  const newUser = repo.create(user)
+
+  return repo.save(newUser)
 };
+
 export const update = async (id: string, user: IUser) => {
-  if (!db.users[id]) {
+  const repo = getRepository(User)
+  const updateRes = await repo.update(id, user)
+
+  if (!updateRes.affected) {
     throw new Error('User not found')
   }
 
-  db.users[id] = { ...db.users[id], ...user }
-  return db.users[id]
+  return user
 };
+
 export const remove = async (id: string) => {
-  if (!db.users[id]) {
+  const repo = getRepository(User)
+  const foundUser = repo.findOne(id)
+
+  if (!foundUser) {
     throw new Error('User not found')
   }
 
-  const deletedUser = db.users[id]
-  delete db.users[id]
-  return deletedUser
+  repo.delete(id)
+
+  return foundUser
 }

@@ -1,5 +1,5 @@
 import db from '../../../db/index.js'
-import { IColumn } from './column.model';
+import { IColumn } from '../../entities/column.model.js';
 
 export const getAll = async () => db.columns
 export const getById = async (id: string) => {

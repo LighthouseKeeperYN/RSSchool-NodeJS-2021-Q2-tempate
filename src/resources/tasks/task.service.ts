@@ -1,5 +1,5 @@
 import * as tasksRepo from './task.memory.repository.js';
-import Task, { ITask } from './task.model.js'
+import Task, { ITask } from '../../entities/task.model.js'
 
 export const getAll = async (boardId: string) => Object.values(await tasksRepo.getAll(boardId));
 export const getById = async (boardId: string, taskId: string) => tasksRepo.getById(boardId, taskId)
