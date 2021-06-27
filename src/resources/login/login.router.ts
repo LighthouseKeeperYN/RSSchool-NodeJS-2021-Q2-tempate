@@ -12,7 +12,7 @@ router.route('/').post(async (req, res) => {
 
     res.status(200).json({ token });
   } catch (e) {
-    res.status(404).send(e.message);
+    res.status(403).send(e.message);
   }
 });
 

@@ -13,6 +13,7 @@ import uncaughtExceptionMiddleware from './middleware/uncaughtException.middlewa
 import unhandledRejectionMiddleware from './middleware/unhandledRejection.middleware.js'
 import errorMiddleware from './middleware/error.middleware.js'
 import requestMiddleware from './middleware/request.middleware.js'
+import authMiddleware from './middleware/auth.middleware.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -23,6 +24,7 @@ const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 app.use(express.json());
 app.use(errorMiddleware)
 app.use(requestMiddleware)
+app.use(authMiddleware)
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 

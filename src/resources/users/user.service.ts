@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 import * as usersRepo from './user.memory.repository.js';
 import * as tasksRepo from '../tasks/task.memory.repository.js';
