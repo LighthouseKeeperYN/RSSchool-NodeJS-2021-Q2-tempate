@@ -5,7 +5,7 @@ import { JWT_SECRET_KEY } from '../../common/config.js'
 import { IUser } from '../../entities/user.model.js'
 import * as usersRepo from '../users/user.memory.repository.js';
 
-export const authenticateUser = async ({ login, password }: IUser) => {
+export const authenticateUser = async ({ login, password = '' }: Partial<IUser>) => {
   const user = await usersRepo.getOne({ login })
   const isValid = bcrypt.compareSync(password, user.password)
 

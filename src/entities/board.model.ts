@@ -2,10 +2,9 @@ import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from "typeorm";
 import { v1 as uuid } from 'uuid';
 
 export interface IBoard {
-  id: string,
+  id?: string,
   title: string,
   columns: string
-
 }
 
 @Entity({ name: 'boards' })

@@ -16,7 +16,7 @@ export const authMiddleware: RequestHandler = (req, res, next) => {
   try {
     isValidToken = !!token && !!jwt.verify(token, JWT_SECRET_KEY!)
   } catch (error) {
-    console.error(1)
+    console.error('403')
   }
 
   if (!isValidToken) {
