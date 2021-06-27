@@ -1,5 +1,5 @@
 import express from 'express'
-import Column from './column.model.js'
+import Column from '../../entities/column.model.js'
 import * as columnsService from './column.service.js'
 
 const router = express.Router()

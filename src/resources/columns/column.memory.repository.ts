@@ -1,32 +1,49 @@
-import db from '../../../db/index.js'
-import { IColumn } from './column.model';
+import { getRepository } from 'typeorm';
+import Column, { IColumn } from '../../entities/column.model.js';
 
-export const getAll = async () => db.columns
+export const getAll = async () => {
+  const repo = getRepository(Column)
+  return repo.find()
+};
+
 export const getById = async (id: string) => {
-  if (!db.columns[id]) {
+  const repo = getRepository(Column)
+  const column = await repo.findOne(id)
+
+  if (!column) {
     throw new Error('Column not found')
   }
 
-  return db.columns[id]
+  return column
 }
+
 export const create = async (column: IColumn) => {
-  db.columns[column.id] = column
-  return db.columns[column.id]
+  const repo = getRepository(Column)
+  const newColumn = repo.create(column)
+
+  return repo.save(newColumn)
 };
+
 export const update = async (id: string, column: IColumn) => {
-  if (!db.columns[id]) {
+  const repo = getRepository(Column)
+  const updateRes = await repo.update(id, column)
+
+  if (!updateRes.affected) {
     throw new Error('Column not found')
   }
 
-  db.columns[id] = { ...db.columns[id], ...column }
-  return db.columns[id]
+  return column
 };
+
 export const remove = async (id: string) => {
-  if (!db.columns[id]) {
+  const repo = getRepository(Column)
+  const foundColumn = await repo.findOne(id)
+
+  if (!foundColumn) {
     throw new Error('Column not found')
   }
 
-  const deletedColumn = db.columns[id]
-  delete db.columns[id]
-  return deletedColumn
+  await repo.delete(id)
+
+  return foundColumn
 }

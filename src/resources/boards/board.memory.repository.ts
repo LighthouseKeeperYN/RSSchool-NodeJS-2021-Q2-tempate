@@ -1,34 +1,53 @@
-import db from '../../../db/index.js'
-import { IBoard } from './board.model';
+import { getRepository } from 'typeorm';
+import Board, { IBoard } from '../../entities/board.model.js';
+import Task from '../../entities/task.model.js';
 
-export const getAll = async () => db.boards
+export const getAll = async () => {
+  const repo = getRepository(Board)
+  return repo.find()
+};
+
 export const getById = async (id: string) => {
-  if (!db.boards[id]) {
+  const repo = getRepository(Board)
+  const board = await repo.findOne(id)
+
+  if (!board) {
     throw new Error('Board not found')
   }
 
-  return db.boards[id]
+  return board
 }
+
 export const create = async (board: IBoard) => {
-  db.boards[board.id] = board
-  db.tasks[board.id] = {}
-  return db.boards[board.id]
+  const repo = getRepository(Board)
+  const newBoard = repo.create(board)
+
+  return repo.save(newBoard)
 };
+
 export const update = async (id: string, board: IBoard) => {
-  if (!db.boards[id]) {
+  const repo = getRepository(Board)
+  const updateRes = await repo.update(id, board)
+
+  if (!updateRes.affected) {
     throw new Error('Board not found')
   }
 
-  db.boards[id] = { ...db.boards[id], ...board }
-  return db.boards[id]
+  return board
 };
+
 export const remove = async (id: string) => {
-  if (!db.boards[id]) {
+  const boardRepo = getRepository(Board)
+  const taskRepo = getRepository(Task)
+
+  const foundBoard = await boardRepo.findOne(id)
+
+  if (!foundBoard) {
     throw new Error('Board not found')
   }
 
-  const deletedBoard = db.boards[id]
-  delete db.boards[id]
-  delete db.tasks[id]
-  return deletedBoard
+  await taskRepo.delete({ boardId: id });
+  await boardRepo.delete(id)
+
+  return foundBoard
 }

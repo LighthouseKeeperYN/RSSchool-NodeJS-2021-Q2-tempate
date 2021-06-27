@@ -1,5 +1,5 @@
 import express, { Request as IRequest } from 'express'
-import Task from './task.model.js'
+import Task from '../../entities/task.model.js'
 import * as tasksService from './task.service.js'
 
 const router = express.Router({ mergeParams: true })
@@ -8,17 +8,17 @@ router.route('/').get(async (req: IRequest, res) => {
   const { boardId } = req.params;
   if (!boardId) return
 
-  const tasks = await tasksService.getAll(boardId);
+  const tasks = await tasksService.getAll();
 
   res.status(200).json(tasks.map(Task.toResponse));
 });
 
 router.route('/:taskId').get(async (req: IRequest, res) => {
-  const { taskId, boardId } = req.params;
-  if (!boardId || !taskId) return
+  const { taskId } = req.params;
+  if (!taskId) return
 
   try {
-    const task = await tasksService.getById(boardId, taskId);
+    const task = await tasksService.getById(taskId);
     if (!task) return
     res.status(200).json(Task.toResponse(task));
   } catch (e) {
@@ -38,11 +38,11 @@ router.route('/').post(async (req: IRequest, res) => {
 
 router.route('/:taskId').put(async (req: IRequest, res) => {
   const { body } = req;
-  const { taskId, boardId } = req.params;
-  if (!taskId || !boardId) return
+  const { taskId } = req.params;
+  if (!taskId) return
 
   try {
-    const task = await tasksService.update(boardId, taskId, body);
+    const task = await tasksService.update(taskId, body);
     if (!task) return
     res.status(200).json(Task.toResponse(task));
   } catch (e) {
@@ -51,11 +51,11 @@ router.route('/:taskId').put(async (req: IRequest, res) => {
 });
 
 router.route('/:taskId').delete(async (req: IRequest, res) => {
-  const { taskId, boardId } = req.params;
-  if (!boardId || !taskId) return
+  const { taskId } = req.params;
+  if (!taskId) return
 
   try {
-    const task = await tasksService.remove(boardId, taskId);
+    const task = await tasksService.remove(taskId);
     if (!task) return
     res.status(200).json(Task.toResponse(task));
   } catch (e) {
