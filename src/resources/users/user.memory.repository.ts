@@ -6,9 +6,9 @@ export const getAll = async () => {
   return repo.find()
 };
 
-export const getById = async (id: string) => {
+export const getOne = async (options: Partial<IUser>) => {
   const repo = getRepository(User)
-  const user = await repo.findOne({ id })
+  const user = await repo.findOne(options)
 
   if (!user) {
     throw new Error('User not found')

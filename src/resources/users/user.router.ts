@@ -14,7 +14,7 @@ router.route('/:userId').get(async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const user = await usersService.getById(userId);
+    const user = await usersService.getOne({ id: userId });
     if (!user) return
     res.status(200).json(User.toResponse(user));
   } catch (e) {
