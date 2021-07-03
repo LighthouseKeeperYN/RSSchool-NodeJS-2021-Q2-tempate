@@ -7,11 +7,13 @@ import YAML from 'yamljs';
 import boardRouter from './resources/boards/board.router.js';
 import taskRouter from './resources/tasks/task.router.js';
 import userRouter from './resources/users/user.router.js';
+import loginRouter from './resources/login/login.router.js';
 
 import uncaughtExceptionMiddleware from './middleware/uncaughtException.middleware.js'
 import unhandledRejectionMiddleware from './middleware/unhandledRejection.middleware.js'
 import errorMiddleware from './middleware/error.middleware.js'
 import requestMiddleware from './middleware/request.middleware.js'
+import authMiddleware from './middleware/auth.middleware.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,6 +24,7 @@ const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 app.use(express.json());
 app.use(errorMiddleware)
 app.use(requestMiddleware)
+app.use(authMiddleware)
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
@@ -36,7 +39,7 @@ app.use('/', (req, res, next) => {
 app.use('/boards', boardRouter);
 app.use('/boards/:boardId/tasks', taskRouter);
 app.use('/users', userRouter);
-
+app.use('/login', loginRouter);
 
 process.on('uncaughtException', uncaughtExceptionMiddleware);
 process.on('unhandledRejection', unhandledRejectionMiddleware);

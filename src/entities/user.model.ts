@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from "typeorm";
 import { v1 as uuid } from 'uuid'
 
 export interface IUser {
-  id: string,
+  id?: string,
   name: string,
   login: string,
   password: string

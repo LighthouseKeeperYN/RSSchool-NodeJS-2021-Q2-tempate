@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from "typeorm";
 import { v1 as uuid } from 'uuid'
 
 export interface ITask {
-  id: string,
+  id?: string,
   title: string,
   order: number,
   description: string,
