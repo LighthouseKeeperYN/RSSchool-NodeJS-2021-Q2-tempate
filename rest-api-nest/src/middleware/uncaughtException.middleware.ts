@@ -6,7 +6,7 @@ import path/* , { dirname } */ from 'path';
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 
-const __dirname = path.resolve(path.dirname(''));
+// const __dirname = path.resolve(path.dirname(''));
 
 export const uncaughtExceptionMiddleware = (error: Error) => {
   const logEntry = `

@@ -7,7 +7,7 @@ import type { RequestHandler } from 'express';
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 
-const __dirname = path.resolve(path.dirname(''));
+// const __dirname = path.resolve(path.dirname(''));
 
 export const loggerMiddleware: RequestHandler = (req, res, next) => {
   const logEntry = `

@@ -10,13 +10,13 @@ import Column from '../entities/column.model.js';
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 
-const __dirname = path.resolve(path.dirname(''));
+// const __dirname = path.resolve(path.dirname(''));
 
 dotenv.config({
   path: path.join(__dirname, '../../.env'),
 });
 
-export default {
+const dbConfig: ConnectionOptions = {
   type: 'postgres',
   host: process.env['POSTGRES_HOST']!,
   port: +process.env['POSTGRES_PORT']!,
@@ -25,8 +25,7 @@ export default {
   database: process.env['POSTGRES_DB']!,
   synchronize: true,
   logging: false,
-  autoReconnect: true,
-  reconnectTries: Number.MAX_VALUE,
-  reconnectInterval: 1000,
   entities: [User, Board, Task, Column],
-} as ConnectionOptions;
+};
+
+export default dbConfig

@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { getRepository, } from 'typeorm';
 import User, { IUser } from '../../entities/user.model.js';
 
 export const getAll = async () => {
