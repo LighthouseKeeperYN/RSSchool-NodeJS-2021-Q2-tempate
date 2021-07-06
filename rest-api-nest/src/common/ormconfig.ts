@@ -28,4 +28,4 @@ const dbConfig: ConnectionOptions = {
   entities: [User, Board, Task, Column],
 };
 
-export default dbConfig
+export default dbConfig;
