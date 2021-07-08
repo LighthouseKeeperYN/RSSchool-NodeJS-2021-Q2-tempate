@@ -1,12 +1,14 @@
 import {
-  Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res,
+  Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 
 import User, { IUser } from '../../entities/user.model.js';
 import UserService from './user.service';
+import AuthGuard from '../../guards/auth.guard';
 
 @Controller('users')
+@UseGuards(new AuthGuard())
 export default class UserController {
   constructor(
     private readonly userService: UserService,

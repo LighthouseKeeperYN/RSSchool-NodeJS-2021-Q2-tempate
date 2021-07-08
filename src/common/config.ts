@@ -1,11 +1,5 @@
 import dotenv from 'dotenv';
-import path /* , { dirname } */ from 'path';
-// import { fileURLToPath } from 'url';
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-
-// const __dirname = path.resolve(path.dirname(''));
+import path from 'path';
 
 dotenv.config({
   path: path.join(__dirname, '../../.env'),

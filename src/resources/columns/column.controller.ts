@@ -1,12 +1,14 @@
 import {
-  Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res,
+  Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 
 import Column, { IColumn } from '../../entities/column.model.js';
 import ColumnService from './column.service';
+import AuthGuard from '../../guards/auth.guard';
 
 @Controller('columns')
+@UseGuards(new AuthGuard())
 export default class ColumnController {
   constructor(
     private readonly columnService: ColumnService,

@@ -1,12 +1,14 @@
 import {
-  Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res,
+  Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 
 import Task, { ITask } from '../../entities/task.model.js';
 import TaskService from './task.service';
+import AuthGuard from '../../guards/auth.guard';
 
 @Controller('boards/:boardId/tasks')
+@UseGuards(new AuthGuard())
 export default class TaskController {
   constructor(
     private readonly taskService: TaskService,

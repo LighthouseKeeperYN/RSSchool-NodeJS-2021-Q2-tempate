@@ -1,12 +1,14 @@
 import {
-  Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res,
+  Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 
 import Board, { IBoard } from '../../entities/board.model.js';
 import BoardService from './board.service';
+import AuthGuard from '../../guards/auth.guard';
 
 @Controller('boards')
+@UseGuards(new AuthGuard())
 export default class BoardController {
   constructor(
     private readonly boardService: BoardService,

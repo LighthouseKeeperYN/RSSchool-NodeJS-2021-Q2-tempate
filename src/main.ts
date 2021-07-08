@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import path from 'path';
 import YAML from 'yamljs';
+import LoginService from './resources/login/login.service';
+import UsersService from './resources/users/user.service';
 
 import { AppModule } from './app.module';
 import { PORT, HOST } from './common/config.js';
@@ -14,10 +16,10 @@ async function bootstrap() {
 
   await app.listen(PORT, HOST);
 
-  // try {
-  //   await loginService.authenticateUser({ login: 'admin', password: 'admin' });
-  // } catch (error) {
-  //   await usersService.create({ name: 'admin', login: 'admin', password: 'admin' });
-  // }
+  try {
+    await app.get(LoginService).authenticateUser({ login: 'admin', password: 'admin' });
+  } catch (error) {
+    await app.get(UsersService).create({ name: 'admin', login: 'admin', password: 'admin' });
+  }
 }
 bootstrap();
