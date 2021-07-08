@@ -18,10 +18,6 @@ export default class ColumnsService {
   async findOne(options: Partial<IColumn>) {
     const column = await this.columnRepository.findOne(options);
 
-    if (!column) {
-      throw new Error('Column not found');
-    }
-
     return column;
   }
 
@@ -34,16 +30,12 @@ export default class ColumnsService {
   async update(id: string, columnData: IColumn) {
     const updateResult = await this.columnRepository.update(id, columnData);
 
-    if (!updateResult.affected) {
-      throw new Error('Column not found');
-    }
+    return !!updateResult.affected;
   }
 
   async remove(id: string) {
     const deleteResult = await this.columnRepository.delete(id);
 
-    if (!deleteResult.affected) {
-      throw new Error('Column not found');
-    }
+    return !!deleteResult.affected;
   }
 }

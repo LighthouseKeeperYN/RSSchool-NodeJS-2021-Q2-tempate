@@ -21,10 +21,6 @@ export default class BoardsService {
   async findOne(options: Partial<IBoard>) {
     const board = await this.boardRepository.findOne(options);
 
-    if (!board) {
-      throw new Error('Board not found');
-    }
-
     return board;
   }
 
@@ -37,18 +33,18 @@ export default class BoardsService {
   async update(id: string, board: IBoard) {
     const updateResult = await this.boardRepository.update(id, board);
 
-    if (!updateResult.affected) {
-      throw new Error('Board not found');
-    }
+    return !!updateResult.affected;
   }
 
   async remove(id: string) {
     const boardDeleteResult = await this.boardRepository.delete(id);
 
     if (!boardDeleteResult.affected) {
-      throw new Error('Board not found');
+      return false;
     }
 
     await this.taskRepository.delete({ boardId: id });
+
+    return true;
   }
 }

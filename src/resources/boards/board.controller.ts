@@ -1,5 +1,5 @@
 import {
-  Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGuards,
+  Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put, Res, UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 
@@ -24,12 +24,13 @@ export default class BoardController {
     @Res() res: Response,
     @Param('id') id: string,
   ) {
-    try {
-      const board = await this.boardService.findOne({ id });
-      return res.json(Board.toResponse(board!));
-    } catch (e) {
-      return res.status(HttpStatus.NOT_FOUND).json(e.message);
+    const board = await this.boardService.findOne({ id });
+
+    if (!board) {
+      throw new NotFoundException('Board not found');
     }
+
+    return res.json(Board.toResponse(board!));
   }
 
   @Post()
@@ -44,12 +45,13 @@ export default class BoardController {
     @Param('id') boardId: string,
     @Body() body: IBoard,
   ) {
-    try {
-      await this.boardService.update(boardId, body);
-      return res.json('Board updated');
-    } catch (e) {
-      return res.status(HttpStatus.NOT_FOUND).json(e.message);
+    const isUpdated = await this.boardService.update(boardId, body);
+
+    if (!isUpdated) {
+      throw new NotFoundException('Board not found');
     }
+
+    return res.json('Board updated');
   }
 
   @Delete(':id')
@@ -57,11 +59,12 @@ export default class BoardController {
     @Res() res: Response,
     @Param('id') boardId: string,
   ) {
-    try {
-      await this.boardService.remove(boardId);
-      return res.json('Board deleted');
-    } catch (e) {
-      return res.status(HttpStatus.NOT_FOUND).json(e.message);
+    const isDeleted = await this.boardService.remove(boardId);
+
+    if (!isDeleted) {
+      throw new NotFoundException('Board not found');
     }
+
+    return res.json('Board updated');
   }
 }

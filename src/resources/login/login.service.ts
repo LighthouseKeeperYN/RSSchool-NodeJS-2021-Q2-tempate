@@ -18,7 +18,7 @@ export default class LoginService {
     const isValid = bcrypt.compareSync(password, user?.password || '');
 
     if (!user || !isValid) {
-      throw new Error('Invalid credentials');
+      return false;
     }
 
     const token = jwt.sign(

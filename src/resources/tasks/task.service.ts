@@ -18,10 +18,6 @@ export default class TasksService {
   async findOne(options: Partial<ITask>) {
     const task = await this.taskRepository.findOne(options);
 
-    if (!task) {
-      throw new Error('Task not found');
-    }
-
     return task;
   }
 
@@ -34,16 +30,12 @@ export default class TasksService {
   async update(id: string, task: ITask) {
     const updateResult = await this.taskRepository.update(id, task);
 
-    if (!updateResult.affected) {
-      throw new Error('Task not found');
-    }
+    return !!updateResult.affected;
   }
 
   async remove(id: string) {
     const deleteResult = await this.taskRepository.delete(id);
 
-    if (!deleteResult.affected) {
-      throw new Error('Task not found');
-    }
+    return !!deleteResult.affected;
   }
 }

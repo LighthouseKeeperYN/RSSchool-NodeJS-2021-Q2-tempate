@@ -4,12 +4,15 @@ import path from 'path';
 import YAML from 'yamljs';
 import LoginService from './resources/login/login.service';
 import UsersService from './resources/users/user.service';
+import HttpExceptionFilter from './filters/httpException.filter';
 
 import { AppModule } from './app.module';
 import { PORT, HOST } from './common/config.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
   SwaggerModule.setup('doc', app, swaggerDocument);

@@ -20,10 +20,6 @@ export default class UsersService {
   async findOne(options: Partial<IUser>) {
     const user = await this.userRepository.findOne(options);
 
-    if (!user) {
-      throw new Error('User not found');
-    }
-
     return user;
   }
 
@@ -39,18 +35,18 @@ export default class UsersService {
   async update(id: string, { password, ...userData }: IUser) {
     const updateResult = await this.userRepository.update(id, userData);
 
-    if (!updateResult.affected) {
-      throw new Error('User not found');
-    }
+    return !!updateResult.affected;
   }
 
   async remove(id: string) {
     const deleteResult = await this.userRepository.delete(id);
 
     if (!deleteResult.affected) {
-      throw new Error('User not found');
+      return false;
     }
 
     await this.taskRepository.update({ userId: id }, { userId: null });
+
+    return true;
   }
 }
