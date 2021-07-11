@@ -1,11 +1,7 @@
 import moment from 'moment';
 import fs from 'fs';
 import { Response } from 'express';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import path from 'path';
 
 export class ErrorHandler extends Error {
   statusCode: number
@@ -21,17 +17,17 @@ export const handleError = (err: ErrorHandler, res: Response) => {
   const { statusCode, message } = err;
 
   res.status(statusCode).json({
-    status: "error",
+    status: 'error',
     statusCode,
-    message
+    message,
   });
 };
 
 export const logError = (err: ErrorHandler) => {
   const { statusCode, message } = err;
 
-  const logEntry = `[${moment().format('YYYY-MM-DD hh:mm:ss')}]: ${statusCode} ${message}\n`
+  const logEntry = `[${moment().format('YYYY-MM-DD hh:mm:ss')}]: ${statusCode} ${message}\n`;
   const errorLog = fs.createWriteStream(path.join(__dirname, '../../logs/error.log'), { flags: 'a' });
 
   errorLog.write(logEntry);
-}
+};

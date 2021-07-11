@@ -1,8 +1,41 @@
-import * as columnsRepo from './column.memory.repository.js';
-import Column, { IColumn } from '../../entities/column.model.js'
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-export const getAll = async () => columnsRepo.getAll();
-export const getById = async (columnId: string) => columnsRepo.getById(columnId)
-export const create = async (body: IColumn) => columnsRepo.create(new Column(body))
-export const update = async (columnId: string, body: IColumn) => columnsRepo.update(columnId, Column.fromRequest(body))
-export const remove = async (columnId: string) => columnsRepo.remove(columnId)
+import Column, { IColumn } from '../../entities/column.model.js';
+
+@Injectable()
+export default class ColumnsService {
+  constructor(
+    @InjectRepository(Column)
+    private columnRepository: Repository<Column>,
+  ) { }
+
+  async findAll() {
+    return this.columnRepository.find();
+  }
+
+  async findOne(options: Partial<IColumn>) {
+    const column = await this.columnRepository.findOne(options);
+
+    return column;
+  }
+
+  async create(columnData: IColumn) {
+    const newColumn = this.columnRepository.create(new Column(columnData));
+
+    return this.columnRepository.save(newColumn);
+  }
+
+  async update(id: string, columnData: IColumn) {
+    const updateResult = await this.columnRepository.update(id, columnData);
+
+    return !!updateResult.affected;
+  }
+
+  async remove(id: string) {
+    const deleteResult = await this.columnRepository.delete(id);
+
+    return !!deleteResult.affected;
+  }
+}

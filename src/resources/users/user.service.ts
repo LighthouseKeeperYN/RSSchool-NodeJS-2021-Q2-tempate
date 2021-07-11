@@ -1,21 +1,52 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import bcrypt from 'bcryptjs';
 
-import * as usersRepo from './user.memory.repository.js';
-import * as tasksRepo from '../tasks/task.memory.repository.js';
-import User, { IUser } from '../../entities/user.model.js'
+import User, { IUser } from '../../entities/user.model.js';
+import Task from '../../entities/task.model.js';
 
-export const getAll = async () => usersRepo.getAll();
-export const getOne = async (options: Partial<IUser>) => usersRepo.getOne(options)
-export const create = async ({ password, ...userData }: IUser) => {
-  const newUser = await usersRepo.create(new User({
-    ...userData,
-    password: bcrypt.hashSync(password, 10)
-  }))
+@Injectable()
+export default class UsersService {
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Task) private taskRepository: Repository<Task>,
+  ) { }
 
-  return newUser
-}
-export const update = async (userId: string, body: IUser) => usersRepo.update(userId, User.fromRequest(body))
-export const remove = async (userId: string) => {
-  await tasksRepo.unassignAll(userId)
-  return usersRepo.remove(userId)
+  async findAll() {
+    return this.userRepository.find();
+  }
+
+  async findOne(options: Partial<IUser>) {
+    const user = await this.userRepository.findOne(options);
+
+    return user;
+  }
+
+  async create({ password, ...userData }: IUser) {
+    const newUser = this.userRepository.create(new User({
+      ...userData,
+      password: bcrypt.hashSync(password, 10),
+    }));
+
+    return this.userRepository.save(newUser);
+  }
+
+  async update(id: string, { password, ...userData }: IUser) {
+    const updateResult = await this.userRepository.update(id, userData);
+
+    return !!updateResult.affected;
+  }
+
+  async remove(id: string) {
+    const deleteResult = await this.userRepository.delete(id);
+
+    if (!deleteResult.affected) {
+      return false;
+    }
+
+    await this.taskRepository.update({ userId: id }, { userId: null });
+
+    return true;
+  }
 }

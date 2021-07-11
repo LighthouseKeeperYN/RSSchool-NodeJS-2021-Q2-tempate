@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from "typeorm";
-import { v1 as uuid } from 'uuid'
+import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from 'typeorm';
+import { v1 as uuid } from 'uuid';
 
 export interface IColumn {
   id?: string,
@@ -16,11 +16,11 @@ export default class Column implements IColumn {
   constructor({
     id = uuid(),
     title = '',
-    order = 0
+    order = 0,
   }: IColumn = {} as IColumn) {
-    this.id = id
-    this.title = title
-    this.order = order
+    this.id = id;
+    this.title = title;
+    this.order = order;
   }
 
   static toResponse(column: IColumn) {

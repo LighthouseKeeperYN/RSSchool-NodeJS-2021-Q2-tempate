@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from "typeorm";
-import { v1 as uuid } from 'uuid'
+import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from 'typeorm';
+import { v1 as uuid } from 'uuid';
 
 export interface ITask {
   id?: string,
@@ -30,22 +30,30 @@ export default class Task implements ITask {
     boardId = '',
     columnId = '',
   }: ITask = {} as ITask) {
-    this.id = id
-    this.title = title
-    this.order = order
-    this.description = description
-    this.userId = userId
-    this.boardId = boardId
-    this.columnId = columnId
+    this.id = id;
+    this.title = title;
+    this.order = order;
+    this.description = description;
+    this.userId = userId;
+    this.boardId = boardId;
+    this.columnId = columnId;
   }
 
   static toResponse(task: ITask) {
-    const { id, title, order, description, userId, boardId, columnId } = task;
-    return { id, title, order, description, userId, boardId, columnId };
+    const {
+      id, title, order, description, userId, boardId, columnId,
+    } = task;
+    return {
+      id, title, order, description, userId, boardId, columnId,
+    };
   }
 
   static fromRequest(task: ITask) {
-    const { id, title, order, description, userId, boardId, columnId } = task;
-    return { id, title, order, description, userId, boardId, columnId };
+    const {
+      id, title, order, description, userId, boardId, columnId,
+    } = task;
+    return {
+      id, title, order, description, userId, boardId, columnId,
+    };
   }
 }

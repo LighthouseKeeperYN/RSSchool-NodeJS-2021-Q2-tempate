@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from "typeorm";
-import { v1 as uuid } from 'uuid'
+import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from 'typeorm';
+import { v1 as uuid } from 'uuid';
 
 export interface IUser {
   id?: string,
@@ -33,7 +33,11 @@ export default class User implements IUser {
   }
 
   static fromRequest(user: IUser) {
-    const { name, login, password, id } = user;
-    return { password, name, login, id };
+    const {
+      name, login, password, id,
+    } = user;
+    return {
+      password, name, login, id,
+    };
   }
 }

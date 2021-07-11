@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column as DbColumn } from 'typeorm';
 import { v1 as uuid } from 'uuid';
 
 export interface IBoard {
@@ -16,7 +16,7 @@ export default class Board implements IBoard {
   constructor({
     id = uuid(),
     title = '',
-    columns
+    columns,
   }: IBoard = {} as IBoard) {
     this.id = id;
     this.title = title;
