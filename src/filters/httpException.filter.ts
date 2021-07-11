@@ -5,12 +5,6 @@ import { Request, Response } from 'express';
 
 @Catch(HttpException)
 export default class HttpExceptionFilter implements ExceptionFilter {
-  constructor(message: string) {
-    this.message = message;
-  }
-
-  message: string
-
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
@@ -23,7 +17,7 @@ export default class HttpExceptionFilter implements ExceptionFilter {
         statusCode: status,
         timestamp: new Date().toISOString(),
         path: request.url,
-        message: this.message,
+        message: exception.message,
       });
   }
 }

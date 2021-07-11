@@ -10,7 +10,9 @@ import { AppModule } from './app.module';
 import { PORT, HOST } from './common/config.js';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn'],
+  });
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
